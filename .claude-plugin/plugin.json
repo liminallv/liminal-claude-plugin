@@ -1,0 +1,8 @@
+{
+  "name": "liminal",
+  "version": "0.9.0",
+  "description": "Integrate Liminal Editor into a web game: onboarding, entity authoring, and level authoring in Blender through the Liminal MCP.",
+  "author": { "name": "Liminal", "url": "https://liminal.lv" },
+  "homepage": "https://liminal.lv",
+  "keywords": ["liminal", "blender", "level-design", "three.js", "gamedev"]
+}
