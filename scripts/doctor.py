@@ -163,11 +163,11 @@ def project_checks(root: Path):
     except ValueError:
         data = {}
     deps = {**data.get("dependencies", {}), **data.get("devDependencies", {})}
-    has_core = "@liminal/core" in deps
-    has_cli = "@liminal/cli" in deps
+    has_core = "@liminal-lv/core" in deps
+    has_cli = "@liminal-lv/cli" in deps
     out.append(check("sdk_installed", "ok" if has_core and has_cli else "fail",
-                     f"@liminal/core {'present' if has_core else 'missing'}, @liminal/cli {'present' if has_cli else 'missing'}",
-                     "" if has_core and has_cli else "Run `npm install @liminal/core` and `npm install -D @liminal/cli` "
+                     f"@liminal-lv/core {'present' if has_core else 'missing'}, @liminal-lv/cli {'present' if has_cli else 'missing'}",
+                     "" if has_core and has_cli else "Run `npm install @liminal-lv/core` and `npm install -D @liminal-lv/cli` "
                      "(pnpm and yarn equivalents are fine)."))
     config = next((root / n for n in ("liminal.config.ts", "liminal.config.js", "liminal.config.mjs") if (root / n).exists()), None)
     out.append(check("liminal_config", "ok" if config else "fail",

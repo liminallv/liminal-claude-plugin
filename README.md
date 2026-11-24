@@ -27,7 +27,7 @@ glTF file coming back (`.lm`). Nothing in it is engine-specific.
 | Blender 4.5 or newer | blender.org | free |
 | **Liminal Editor** Blender add-on | buy at [liminal.lv](https://liminal.lv) (Gumroad or itch.io) | paid, one licence |
 | **Liminal Bridge** Blender add-on | zip on this repository's Releases page | free, MIT |
-| `@liminal/*` npm packages (the Web SDK) | npm | free, MIT |
+| `@liminal-lv/*` npm packages (the Web SDK) | npm | free, MIT |
 | `liminal-mcp` Python package and this plugin | pip, this repository | free, MIT |
 | Python 3.10 or newer | python.org, usually already present | free |
 
@@ -38,9 +38,12 @@ that way.
 
 Supported game hosts today: anything JavaScript, through the Web SDK (Three.js, PlayCanvas,
 Babylon, plain WebGL, a Node game server). The SDK gives you the entities and the geometry; the
-renderer and physics adapters are optional. A Godot plugin exists but is outside this plugin's
-scope. Any other engine can read a `.lm` because it is standard glTF 2.0 with two node
-extensions, documented at [liminal.lv/docs](https://liminal.lv/docs).
+renderer and physics adapters are optional. Two other integrations exist outside this plugin's
+scope: a Godot plugin, and a single-file C SDK (`liminal.h` plus `liminal.c`, C99, MIT) for
+games and engines written in C or C++ or anything that can call C. The C SDK ships as
+`liminal_sdk-<version>-c.zip` with each release and is documented under C SDK at
+[liminal.lv/docs](https://liminal.lv/docs). Any other engine can read a `.lm` because it is
+standard glTF 2.0 with two node extensions, documented in the same place.
 
 ## Install the plugin (Claude Code)
 
@@ -79,7 +82,7 @@ MCP server is any-client. Point your tool at `skills/*/SKILL.md` and register `l
 
 1. **Setup.** `/liminal:setup` until it is green. The assistant installs `liminal-mcp`, you
    install the two Blender add-ons from Edit > Preferences > Get Extensions > Install from Disk.
-2. **Describe your entities** in TypeScript with `@liminal/core` and run `liminal sync` to
+2. **Describe your entities** in TypeScript with `@liminal-lv/core` and run `liminal sync` to
    write the Blender workspace. The `liminal-entities` skill covers what makes an entity
    pleasant to place and wire.
 3. **Point Blender at the workspace.** In the editor's preferences, add a game configuration
@@ -88,7 +91,7 @@ MCP server is any-client. Point your tool at `skills/*/SKILL.md` and register `l
 4. **Build a level.** By hand in Blender, or by asking the assistant, which now has the
    `lm_*` tools: place entities, set props, wire signals, lint, export. The `liminal-levels`
    skill is the workflow.
-5. **Load it in the game** with `parseScene` from `@liminal/core`, and turn the geometry into
+5. **Load it in the game** with `parseScene` from `@liminal-lv/core`, and turn the geometry into
    meshes and colliders with the adapters. The `liminal-web` skill has the code.
 
 Loop on 4 and 5. Export from Blender, reload the game, repeat.

@@ -1,11 +1,11 @@
 ---
 name: liminal-web
-description: Integrate the Liminal Web SDK (@liminal/core, @liminal/cli, @liminal/three, @liminal/collision-2d, @liminal/collision-3d) into a JavaScript or TypeScript game. Use when writing the entity registry, liminal.config.ts, running liminal sync, loading a .lm level with parseScene, building colliders or Three.js meshes from level geometry, dispatching entity signals, or debugging a level that loads wrong.
+description: Integrate the Liminal Web SDK (@liminal-lv/core, @liminal-lv/cli, @liminal-lv/three, @liminal-lv/collision-2d, @liminal-lv/collision-3d) into a JavaScript or TypeScript game. Use when writing the entity registry, liminal.config.ts, running liminal sync, loading a .lm level with parseScene, building colliders or Three.js meshes from level geometry, dispatching entity signals, or debugging a level that loads wrong.
 ---
 
 # Liminal Web SDK
 
-Engine-agnostic TypeScript. `@liminal/core` has zero runtime dependencies and runs in a
+Engine-agnostic TypeScript. `@liminal-lv/core` has zero runtime dependencies and runs in a
 browser bundle and on a Node server unchanged. The adapters are optional. The authoritative
 reference is the SDK README in the Liminal Editor repository (`integrations/web/README.md`)
 and the example game beside it (`integrations/web/examples/alien-invasion`); this skill is the
@@ -14,10 +14,10 @@ working subset.
 ## Install
 
 ```bash
-npm install @liminal/core
-npm install -D @liminal/cli
-npm install @liminal/three            # if rendering with Three.js
-npm install @liminal/collision-2d     # or @liminal/collision-3d
+npm install @liminal-lv/core
+npm install -D @liminal-lv/cli
+npm install @liminal-lv/three            # if rendering with Three.js
+npm install @liminal-lv/collision-2d     # or @liminal-lv/collision-3d
 ```
 
 Node 22.18 or newer runs `liminal.config.ts` natively. Older Node: `npx tsx liminal sync`.
@@ -26,7 +26,7 @@ Node 22.18 or newer runs `liminal.config.ts` natively. Older Node: `npx tsx limi
 
 ```ts
 // src/entities.ts
-import { createRegistry, defineEntity } from '@liminal/core';
+import { createRegistry, defineEntity } from '@liminal-lv/core';
 
 export const info_player_start = defineEntity({
   classname: 'info_player_start',
@@ -80,7 +80,7 @@ Rules the SDK enforces or depends on:
 ```ts
 // liminal.config.ts, beside package.json
 import { REGISTRY } from './src/entities.ts';
-import { box } from '@liminal/core/glb-write';
+import { box } from '@liminal-lv/core/glb-write';
 
 export default {
   registry: REGISTRY,
@@ -110,7 +110,7 @@ regenerated; ignoring it is fine. Authored `.blend` files go in a `blender/` fol
 ## Loading a level
 
 ```ts
-import { parseScene } from '@liminal/core';
+import { parseScene } from '@liminal-lv/core';
 import { REGISTRY } from './entities.ts';
 
 const bytes = await fetch('/levels/hangar.lm').then((r) => r.arrayBuffer());
@@ -139,7 +139,7 @@ Serve `_blender/levels/` as static files, or copy them into `public/levels/` in 
 ### Colliders
 
 ```ts
-import { collider2dFrom } from '@liminal/collision-2d';
+import { collider2dFrom } from '@liminal-lv/collision-2d';
 for (const node of scene.geometry) {
   const c = collider2dFrom(node.mesh, node.world, node.collision, { plane: 'xz' });
   if (!c) continue;                       // NONE, or degenerate once flattened
@@ -149,13 +149,13 @@ for (const node of scene.geometry) {
 }
 ```
 
-`@liminal/collision-3d` has the same shape with `space: 'local' | 'world'`. If your physics
+`@liminal-lv/collision-3d` has the same shape with `space: 'local' | 'world'`. If your physics
 engine wants a shape these do not produce, the raw mesh and matrix are right there.
 
 ### Rendering with Three.js
 
 ```ts
-import { toMesh } from '@liminal/three';
+import { toMesh } from '@liminal-lv/three';
 for (const node of scene.geometry) three.add(toMesh(node, { library: MATERIALS }));
 ```
 
@@ -165,7 +165,7 @@ library and falls back to the factors. No textures travel in the file.
 ## Signals
 
 ```ts
-import { createWiring, lintWiring, LIMINAL_SIGNALS } from '@liminal/core';
+import { createWiring, lintWiring, LIMINAL_SIGNALS } from '@liminal-lv/core';
 const wiring = createWiring<Payload>(scene.entities, REGISTRY);
 
 for (const name of wiring.destinationsFor(trigger.id)) {
@@ -189,7 +189,7 @@ or `xz` (top-down); `math.ts` in core has `zRotationOf` and `yRotationOf` for th
 
 An entity can carry its own `.lm`, built in Blender like a level and exported the same way,
 with meshes, brush volumes and nested entities. Pass them to `parseScene` as `definitions`
-keyed by classname (`loadDefinitionsFromDisk` in `@liminal/cli` reads `definitionsDir`).
+keyed by classname (`loadDefinitionsFromDisk` in `@liminal-lv/cli` reads `definitionsDir`).
 Their contents come back in the same `entities` and `geometry` lists with `parentId` set, and
 their ids are deterministic across hosts. A networked game must load identical definition
 bytes on every host.

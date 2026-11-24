@@ -1,6 +1,6 @@
 ---
 name: liminal-entities
-description: Design and author Liminal entity definitions for a game, in TypeScript with @liminal/core or as raw entities.json. Use when adding or changing an entity, choosing prop types, naming wiring props, defining choice types, adding viewport gizmos or preview models, or when entities.json fails to load in Blender. Includes a validator for entities.json.
+description: Design and author Liminal entity definitions for a game, in TypeScript with @liminal-lv/core or as raw entities.json. Use when adding or changing an entity, choosing prop types, naming wiring props, defining choice types, adding viewport gizmos or preview models, or when entities.json fails to load in Blender. Includes a validator for entities.json.
 ---
 
 # Authoring entities
@@ -76,7 +76,7 @@ turn it into a collider.
 
 - `metadata.color` tints the entity in Blender. Pick one colour per category.
 - `metadata.model` names a `.glb` under `_blender/models/`. Supply it from `liminal.config.ts`
-  with `models: { func_door: box(1, 2, 0.2) }` using `@liminal/core/glb-write`, or any real
+  with `models: { func_door: box(1, 2, 0.2) }` using `@liminal-lv/core/glb-write`, or any real
   mesh. A stand-in box of the right size is worth more than a detailed model: the designer
   needs the footprint.
 - Without a model an entity is a small empty; fine for markers, poor for anything with size.
